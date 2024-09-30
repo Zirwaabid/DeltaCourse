@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="server/">
+        choose your profession
+        <select name="professsion" id="professsion">
+            <option value="">select your profession</option>
+            <option value="stu">Student</option>
+            <option value="dev">developer</option>
+        </select>
+        <label for="volume">choose your volume</label>
+        <input type="range" id="volume" min="0" max="100" name="vol" step="10">
+        <!-- step means kis range main kam or ziyada hona chahiya uper walay main 10 10 ki range sa ziyada ho ga or 10 ki range sai kam  -->
+         <br>
+        <label for="feed">Give your feedback</label>
+        <textarea name="feedback" id="feed" rows="3" cols="100" placeholder="Write your feedback"></textarea>
+        <button>submit</button>
+    </form>
+
+</body>
+
+</html>
