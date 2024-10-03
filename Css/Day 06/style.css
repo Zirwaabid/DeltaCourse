@@ -1,0 +1,26 @@
+/* checked pseudo class  */
+input[type="radio"]:checked+label {
+    color: red;
+    font-weight: bold;
+}
+
+/* nth of type pseudo class  */
+
+h1:nth-of-type(3){
+background-color: aqua;
+}
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+}
+h1{
+    color: #1b74e4;
+}
+button:nth-of-type(3){
+    background-color: black;
+    color: white;
+}
+.btn{
+    background-color: aqua;
+}
+
