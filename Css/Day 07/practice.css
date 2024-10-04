@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    height: 200px;
+    width: 70px;
+    border: 2px solid black;
+     
+}
+
+.container div{
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+.box1{
+    background-color: red;
+}
+.box2{
+    background-color: yellow;
+}
+.box3{
+    background-color: rgb(3, 184, 3);
+}
