@@ -1,12 +1,47 @@
+/* -------transition------- */
 .box {
     height: 100px;
     width: 100px;
     background-color: black;
     transition: margin-top 1s ease-in 0.5s;
+    margin-bottom: 33px;
 }
 
 .box:hover {
     background-color: aquamarine;
     margin-top: 100px;
     border-radius: 50%;
+}
+
+/* ---------transform-------- */
+.box1 {
+    height: 100px;
+    margin-bottom: 30px;
+    width: 100px;
+    background-color: rgb(82, 183, 62);
+}
+
+.b1 {
+    transform: rotate(45deg);
+}
+
+.b2 {
+    transform: scale(0.5);
+}
+
+.b3 {
+    transform: translate(100px, 30px);
+}
+
+.b4{
+    transform: skew(30deg);
+}
+
+.b5{
+    transform: translate(30px) rotate(30deg);
+}
+
+/* -------box shadow-------- */
+.b6{
+    box-shadow: 4px 4px 20px black;
 }
