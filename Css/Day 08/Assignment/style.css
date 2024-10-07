@@ -1,0 +1,36 @@
+#box1 {
+    height: 100px;
+    width: 100px;
+    background-color: green;
+    transition: width ease-in 0.5s;
+}
+
+#box1:hover {
+    width: 600px;
+}
+
+#box2 {
+    width: 100px;
+    height: 100px;
+    background: red;
+    transform: translate(200px, 200px) rotate(90deg);
+}
+#box3{
+    width: 100px;
+    height: 100px;
+    background: lightblue;
+    transform: skewX(20deg);
+}
+
+#box4 {
+    width: 100px;
+    height: 100px;
+    background: lightgreen;
+    box-shadow: 2px 2px 5px green;
+    }
+
+    #myPic {
+        width: 200px;
+        height: 200px;
+        background: pink;
+        }
