@@ -218,10 +218,47 @@ a {
 
 .albums {
     width: 25%;
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
 }
 
+.album-text {
+    font-size: 0.75rem;
+    line-height: 0.7rem;
+    margin-left: 1rem;
+}
+
+.album-text p {
+    opacity: 0.7;
+}
+
+.album-img {
+    height: 3.5rem;
+}
+
+.album-text p:hover {
+    opacity: 1;
+}
+
+.album-icons {
+    display: flex;
+    align-items: center;
+    margin-left: 1.65rem;
+}
+
+.album-icons i {
+    margin: 0.5rem;
+    opacity: 0.7;
+}
+
+.album-icons i:hover {
+    opacity: 1;
+}
+
+
 .player {
-    width: 50%;
+    width: 45%;
 }
 
 .player-controls {
@@ -231,7 +268,25 @@ a {
 }
 
 .controls {
-    width: 25%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.controls-icons {
+    display: flex;
+    align-items: center;
+}
+
+.controls-icons i {
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.controls-icons i:hover {
+    opacity: 1;
 }
 
 .player-controls-icon {
