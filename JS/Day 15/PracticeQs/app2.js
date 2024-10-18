@@ -28,8 +28,8 @@ switch (day) {
 
 console.error("something is wrong");
 console.warn("Dont try again");
-let firstName=prompt("Enter Your FirstName");
-let lastName=prompt("Enter Your lastName");
-console.log("Welcome",firstName, lastName, "!")
-let msg=("Welcome "+ firstName +" "+ lastName + "!")
-alert(msg)
+let firstName = prompt("Enter Your FirstName");
+let lastName = prompt("Enter Your lastName");
+console.log("Welcome", firstName, lastName, "!")
+let msg = ("Welcome " + firstName + " " + lastName + "!")
+alert(msg);
