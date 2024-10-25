@@ -13,7 +13,6 @@ function tables(number) {
 }
 tables(5)
 
-return
 function sum(a, b) {
     console.log("sum")
     return a + b
