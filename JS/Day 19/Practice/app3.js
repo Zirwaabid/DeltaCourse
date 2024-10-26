@@ -18,3 +18,15 @@ function conc(arr) {
     return result
 }
 console.log(conc(arr))
+
+let greet = "AslamuAlikum"; //global scope
+function changeGreet() {
+    let greet = "Hi";
+    console.log(greet)  // functional scope
+    function innerGreet() {
+        console.log(greet);  // lexical scope
+    }
+    innerGreet()
+}
+console.log(greet)
+changeGreet()
