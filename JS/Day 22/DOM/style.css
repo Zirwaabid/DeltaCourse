@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+}
+.main{
+    display: flex;
+    height: 100vh;
+}
+
+.side-logo {
+    width: 26%;
+    height: 100%;
+}
+
+.side-logo .logo{
+    height:27rem ;
+    border-radius: 50%;
+}
+
+.about {
+    flex: 1;
+}
+.about h1{
+    font-size: 4rem;
+    text-align: center;
+}
+.about #para{
+    background-color: rgba(38, 42, 38, 0.874);
+    height:66rem;
+    width: 55rem;
+    border-radius: 5%;
+    padding: 5rem 10rem 10rem 10rem;
+    font-size: 2rem;
+}
+
+.footer{
+    height: 100%;
+    font-size: 2rem;
+}
+.footer .para2 ul li{
+    font-size: 23px;
+}
