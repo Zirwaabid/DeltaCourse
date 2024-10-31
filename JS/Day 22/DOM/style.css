@@ -10,6 +10,12 @@ body {
     height: 100vh;
 }
 
+.green{
+    color: green;
+    text-decoration: overline;
+    text-transform: uppercase;
+}
+
 .side-logo {
     width: 26%;
     height: 100%;

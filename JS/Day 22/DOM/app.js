@@ -3,4 +3,8 @@ for (let i = 0; i < smallImages.length; i++) {
     console.dir(smallImages[i]);
 }
 
-console.dir(document.querySelector(".footer a"))
+let links = document.querySelectorAll(".footer a");
+console.dir(links)
+for (const link of links) {
+    link.style.color = "purple";
+}
