@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    padding-bottom: 3rem;
+}
+
+button {
+    width: 13rem;
+    font-size: 1.3rem;
+    height: 2.2rem;
+}
+
+.box {
+    width: 44%;
+    height: 20%;
+    border: 2px solid black;
+    margin-top: 3rem;
+}
+
+.box p{
+    font-size: 1.70rem;
+    text-align: center;
+}
