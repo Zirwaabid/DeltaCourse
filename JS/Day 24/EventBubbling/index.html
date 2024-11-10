@@ -33,15 +33,18 @@
     <script>
         const div = document.querySelector("div");
         const ul = document.querySelector("ul");
-        const lis = document.querySelector("li");
-        div.addEventListener("click", function () {
+        const lis = document.querySelectorAll("li");
+        div.addEventListener("click", function (evt) {
+            evt.stopPropagation()
             console.log("div was clicked")
         })
-        ul.addEventListener("click", function () {
+        ul.addEventListener("click", function (evt) {
+            evt.stopPropagation()
             console.log("ul was clicked")
         })
         for (const li of lis) {
-            li.addEventListener("click", function () {
+            li.addEventListener("click", function (evt) {
+                evt.stopPropagation()
                 console.log("li was clicked")
             })
         }
