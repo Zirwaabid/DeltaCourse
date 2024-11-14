@@ -3,21 +3,23 @@ const inp = document.querySelector("input")
 const ul = document.querySelector("ul")
 
 btn.addEventListener("click", function () {
-    const item = document.createElement("li")
+    let item = document.createElement("li")
     item.innerText = inp.value;
 
     let delBtn = document.createElement("button");
-    delBtn.innerText = "delete";
+    delBtn.innerText = "Delete";
     delBtn.classList.add("delete");
 
-    item.appendChild(delBtn)
-    ul.appendChild(item)
-    inp.value = ""
+
+    item.appendChild(delBtn);
+    ul.appendChild(item);
+    inp.value = "";
 })
 
-const delBtns = document.querySelectorAll(".delete");
-for (const delBtn of delBtns) {
-    delBtn.addEventListener("click", function () {
-        console.log("delete");
-    })
-}
+ul.addEventListener("click", function (evt) {
+    if (evt.target.nodeName == "BUTTON") {
+        let parElem = evt.target.parentElement;
+       parElem.remove()
+       console.log("deleted")
+    }
+})
