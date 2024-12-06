@@ -11,7 +11,7 @@ app.get("/ig/:username/:id", (req, res) => {
     let { username, id } = req.params;
     let htmlstr = `<h1>Hi Welcome to @${username} page</h1>`
     res.send(htmlstr);
-    // res.send(`This accout belongs to @${username} and your id is ${id}`)
+    // res.send(`This account belongs to @${username} and your id is ${id}`)
 })
 
 //response of queries req
