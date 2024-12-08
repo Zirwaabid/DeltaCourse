@@ -7,9 +7,15 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "/views"))
 
 app.get("/ig/:username", (req, res) => {
-    const instaData = require("./data.json")
-    console.log(instaData)
-    res.render("insta.ejs")
+    let { username } = req.params;
+    const instaData = require("./data.json");
+    const data = instaData[username]
+
+    if (data) {
+        res.render("insta.ejs", { data })
+    } else {
+        res.render("error.ejs")
+    }
 });
 
 app.listen(port, () => {
