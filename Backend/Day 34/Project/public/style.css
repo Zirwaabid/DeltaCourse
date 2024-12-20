@@ -1,0 +1,16 @@
+h1{
+    color: crimson;
+}
+
+.username{
+    font-size: 2rem;
+    font-style: italic;
+}
+
+.content{
+    font-size: 1.3rem;
+}
+
+.post{
+    background-color: rgb(197, 217, 253);
+}
