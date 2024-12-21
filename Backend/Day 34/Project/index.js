@@ -60,7 +60,7 @@ app.get("/posts/:id", (req, res) => {
 
 // to update/edit post
 app.patch("/posts/:id", (req, res) => {
-   let newContent=req.body.content;
+    let newContent = req.body.content;
     console.log(newContent)
     res.send("working")
 })
