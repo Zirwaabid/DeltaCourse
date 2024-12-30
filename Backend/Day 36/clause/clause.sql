@@ -5,6 +5,7 @@ VALUES
     (17,3, 'adam', 'adam@gmail.com', 200, 20),
 	(18,4, 'corey', 'corey@yahoo.com', 300, 43);
     select age,name from user
+
 --    where clause ex 
     where age >= 17;
     -- frequently used operators 
@@ -18,3 +19,33 @@ VALUES
     where age in (14,16); 
       
       where age not in (14,16); -- negate the value
+
+      -- limit clause
+      select name,followers,email from user
+    limit 2;
+   
+  --  order by clause 
+  select name,age,followers from user
+    order by followers desc; --arrange in descending order rows
+    order by followers asc;  --arrange in ascending order rows
+
+    -- aggregate functions 
+    select max(followers) from user;
+
+     select count(age) from user
+    where age = 16;
+
+    select min(age) from user;
+
+    select avg(age) from user;
+
+    select sum(followers) from user;
+
+    -- group by 
+    select age,count(age)
+    from user
+    group by age ;
+    --
+    select age, max(followers)
+    from user
+    group by age;  
