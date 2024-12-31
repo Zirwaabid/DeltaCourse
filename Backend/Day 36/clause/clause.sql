@@ -49,3 +49,9 @@ VALUES
     select age, max(followers)
     from user
     group by age;  
+
+    -- having clause
+     select max(followers)
+    from user
+    group by age
+    having max(followers) > 200;
