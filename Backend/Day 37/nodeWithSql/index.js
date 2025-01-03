@@ -1,11 +1,30 @@
+// require faker 
 const { faker } = require('@faker-js/faker');
-
-let getRandomUser= ()=> {
+// generate fake data 
+let getRandomUser = () => {
   return {
     userId: faker.string.uuid(),
-    username: faker.internet.username(), // before version 9.1.0, use userName()
+    username: faker.internet.username(),
     email: faker.internet.email(),
     password: faker.internet.password(),
   };
 }
 console.log(getRandomUser());
+// require mysql2
+const mysql = require('mysql2');
+// create connection between node and my sql 
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'test',
+  password: 'sql1132005',
+});
+// using sql through query 
+try {
+  connection.query("SHOW TABLES", (err, res) => {
+    if (err) throw err;
+    console.log(res);
+  })
+} catch (error) {
+  console.log(error);
+}
