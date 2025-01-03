@@ -9,14 +9,13 @@ let getRandomUser = () => {
     password: faker.internet.password(),
   };
 }
-console.log(getRandomUser());
 // require mysql2
 const mysql = require('mysql2');
 // create connection between node and my sql 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  database: 'test',
+  database: 'delta_app',
   password: 'sql1132005',
 });
 // using sql through query 
@@ -28,3 +27,4 @@ try {
 } catch (error) {
   console.log(error);
 }
+connection.end();
