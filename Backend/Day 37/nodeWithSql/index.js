@@ -1,16 +1,28 @@
 // require faker 
 const { faker } = require('@faker-js/faker');
-// generate fake data 
-let getRandomUser = () => {
-  return {
-    userId: faker.string.uuid(),
-    username: faker.internet.username(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-  };
-}
 // require mysql2
 const mysql = require('mysql2');
+//require express
+const express = require("express");
+const app = express();
+// require and setting for ejs
+const path = require("path");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "/views"))
+app.use(express.static(path.join(__dirname, "public")))
+
+// generate fake data 
+let getRandomUser = () => {
+  return [
+    faker.string.uuid(),
+    faker.internet.username(),
+    faker.internet.email(),
+    faker.internet.password(),
+  ];
+}
 // create connection between node and my sql 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -18,13 +30,44 @@ const connection = mysql.createConnection({
   database: 'delta_app',
   password: 'sql1132005',
 });
-// using sql through query 
-try {
-  connection.query("SHOW TABLES", (err, res) => {
-    if (err) throw err;
-    console.log(res);
-  })
-} catch (error) {
-  console.log(error);
-}
-connection.end();
+
+//get/fetch and show total number of users
+app.get("/", (req, res) => {
+  let q = ` select count(*) from user`;
+  try {
+    connection.query(q, (err, result) => {
+      if (err) throw err;
+      let count = result[0]["count(*)"];
+      res.render("home.ejs", { count })
+    })
+  } catch (error) {
+    res.send("some error")
+  }
+});
+
+//fetch and show id,username,email of all users
+app.get("/user",(req,res)=>{
+  let q = `select * from user`;
+  try {
+    connection.query(q, (err, users) => {
+      if (err) throw err;
+      res.render("show.ejs",{users});
+    })
+  } catch (error) {
+    res.send("some error in database")
+  }
+})
+app.listen("8080", () => {
+  console.log("app is listening on port 8080")
+});
+
+
+// connection.end();
+
+// using sql through query
+//inserting new data
+// let q = "insert into user (id,username,email,password) values ?";
+// let data = [];
+// for (let i = 1; i <= 100; i++) {
+//   data.push(getRandomUser());
+// };
