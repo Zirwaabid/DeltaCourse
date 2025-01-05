@@ -7,6 +7,9 @@ const express = require("express");
 const app = express();
 // require and setting for ejs
 const path = require("path");
+//require and set up methodoverride
+var methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -46,22 +49,61 @@ app.get("/", (req, res) => {
 });
 
 //fetch and show id,username,email of all users
-app.get("/user",(req,res)=>{
+app.get("/user", (req, res) => {
   let q = `select * from user`;
   try {
     connection.query(q, (err, users) => {
       if (err) throw err;
-      res.render("show.ejs",{users});
+      res.render("show.ejs", { users });
     })
   } catch (error) {
     res.send("some error in database")
   }
-})
+});
+
+//edit (create form)
+app.get("/user/:id/edit", (req, res) => {
+  let { id } = req.params;
+  let q = `select * from user where id='${id}'`;
+  try {
+    connection.query(q, (err, result) => {
+      if (err) throw err;
+      let user = result[0];
+      console.log(user);
+      res.render("edit.ejs", { user });
+    });
+  } catch (error) {
+    res.send("some error in database")
+  }
+});
+//edit (edit username in database)
+app.patch("/user/:id", (req, res) => {
+  let { id } = req.params;
+  let { password: formPass, username: newUsername } = req.body
+  let q = `select * from user where id='${id}'`;
+  try {
+    connection.query(q, (err, result) => {
+      if (err) throw err;
+      let user = result[0];
+      if (formPass != user.password) {
+        res.send("wrong password")
+      }
+      else {
+        let q2 = `update user set username='${newUsername}' where id='${id}'`;
+        connection.query(q2, (err, result) => {
+          if (err) throw err;
+          res.redirect("/user");
+        })
+      }
+    });
+  } catch (error) {
+    res.send("some error in database")
+  }
+});
+
 app.listen("8080", () => {
   console.log("app is listening on port 8080")
 });
-
-
 // connection.end();
 
 // using sql through query

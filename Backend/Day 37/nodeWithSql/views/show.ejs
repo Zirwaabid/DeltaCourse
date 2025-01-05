@@ -32,6 +32,11 @@
                 <td>
                     <%= user.email %>
                 </td>
+                <td>
+                    <form action="/user/<%= user.id%>/edit">
+                        <button>Edit Username</button>
+                    </form>
+                </td>
             </tr>
             <% } %>
     </table>
