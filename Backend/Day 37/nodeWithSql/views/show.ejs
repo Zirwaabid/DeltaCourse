@@ -11,6 +11,11 @@
         td {
             border: 1px solid black;
         }
+
+        button {
+            font-size: 1rem;
+            background-color: rgb(106, 224, 177);
+        }
     </style>
 </head>
 
@@ -36,10 +41,17 @@
                     <form action="/user/<%= user.id%>/edit">
                         <button>Edit Username</button>
                     </form>
+                    <br>
+                    <form action="/user/<%= user.id%>/delete">
+                        <button>Delete</button>
+                    </form>
                 </td>
             </tr>
             <% } %>
     </table>
+    <form action="/user/new">
+    <button>Add new User</button>
+  </form>
 </body>
 
 </html>

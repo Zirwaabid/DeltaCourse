@@ -7,13 +7,13 @@
     <title>Edit</title>
 </head>
 
-<body>
-    <h2>You are about to edit this user <%= user.email %>
+<h2>You are about to edit this user <%= user.email %>
     </h2>
     <form method="POST" action="/user/<%= user.id %>?_method=PATCH">
     <textarea name="username"><%= user.username  %> </textarea>
     <input type="password" name="password" placeholder="enter password">
     <button>Edit</button>
 </body>
+<body>
 
 </html>
