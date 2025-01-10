@@ -173,6 +173,7 @@ app.listen("8080", () => {
 });
 // connection.end();
 
+
 // using sql through query
 //inserting new data
 // let q = "insert into user (id,username,email,password) values ?";
