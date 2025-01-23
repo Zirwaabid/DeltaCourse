@@ -54,4 +54,4 @@ Book.findByIdAndUpdate('678cec36552deafc0ef9edaa', { price: -500 }, { runValidat
         console.log(res)
     }).catch((err) =>
         console.log(err.errors.price.properties.message)
-);
+    );
