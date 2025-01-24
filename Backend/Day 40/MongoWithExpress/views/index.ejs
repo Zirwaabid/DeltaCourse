@@ -22,8 +22,12 @@
             <div class="msg">
                 <p>Chat: <%= chat.msg %>
                 </p>
-                <form method="get" action="/chats/<%= chat.id %>/edit">
+                <form method="get" action="/chats/<%= chat._id %>/edit">
                     <button>Edit</button>
+                </form>
+                <br>
+                <form method="post" action="/chats/<%= chat._id %>?_method=DELETE" class="delete-form">
+                    <button>Delete</button>
                 </form>
             </div>
             <p>Received By: <i>
@@ -36,5 +40,20 @@
         </div>
         <br><br>
  <%   }  %>
+ <script>
+    // Select all delete forms
+    const deleteForms = document.querySelectorAll('.delete-form');
+
+    // Add an event listener to each form
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const isConfirmed = confirm("Are you sure you want to delete this chat?");
+            if (!isConfirmed) {
+                // Prevent form submission if the user cancels
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>

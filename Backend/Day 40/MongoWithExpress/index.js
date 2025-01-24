@@ -3,6 +3,10 @@ const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }))
 
+//require and setting for methodoverride
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"))
+
 // require and setting for ejs
 const path = require("path");
 app.set("view engine", "ejs")
@@ -12,7 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // require and setting for mongoose 
 const mongoose = require('mongoose');
 // require model
-const chat = require("./models/chat.js")
+const chat = require("./models/chat.js");
 // create connection bt js and mongodatabase
 main().then(
     console.log("connection successful")
@@ -28,6 +32,7 @@ async function main() {
 app.get("/", (req, res) => {
     res.send("root directory is working");
 });
+
 //index route
 app.get("/chats", async (req, res) => {
     let chats = await chat.find();
@@ -47,7 +52,6 @@ app.post("/chats", (req, res) => {
         to: to,
         created_at: new Date(),
     });
-    console.log(newChat)
     newChat.save()
         .then((res) => {
             console.log("your chat is save");
@@ -58,8 +62,25 @@ app.post("/chats", (req, res) => {
 });
 
 // edit route 
-app.get("/chats/:id/edit",(req,res)=>{
-    res.render("edit.ejs");
+app.get("/chats/:id/edit", async (req, res) => {
+    let { id } = req.params;
+    let chatData = await chat.findById(id);
+    res.render("edit.ejs", { chatData });
+});
+
+// update route 
+app.put("/chats/:id", async (req, res) => {
+    let { id } = req.params;
+    let { msg: newMsg } = req.body;
+    let updatedChat = await chat.findByIdAndUpdate(id, { msg: newMsg }, { runValidators: true, new: true });
+    res.redirect("/chats");
+})
+
+//destroy route
+app.delete("/chats/:id", async (req, res) => {
+    let { id } = req.params;
+    let deletedChat = await chat.findByIdAndDelete(id)
+    res.redirect("/chats");
 })
 
 app.listen("8080", () => {
