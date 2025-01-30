@@ -6,6 +6,8 @@ app.use(express.urlencoded({ extended: true }));
 // require and setting for ejs
 const path = require("path");
 app.set("view engine", "ejs")
+
+//for require views,public folder in every file use following code
 app.set("views", path.join(__dirname, "/views"))
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -13,6 +15,11 @@ app.use(express.static(path.join(__dirname, "public")));
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"))
 
+// require and setting for ejs mate 
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate)
+
+// require and setting for mongoose 
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 
@@ -33,7 +40,7 @@ app.get("/", (req, res) => {
 // index route 
 app.get("/listings", async (req, res) => {
     const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings })
+    res.render("listings/index.ejs", { allListings });
 });
 
 //create route for form 
