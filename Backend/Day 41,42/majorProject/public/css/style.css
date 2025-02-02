@@ -1,3 +1,14 @@
+body {
+    font-family: "Roboto", serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
 /* navbar  */
 .navbar {
     height: 5rem;
@@ -24,14 +35,15 @@
 }
 
 .f-info-links,
-.f-info-socials,.f-info-brand {
+.f-info-socials,
+.f-info-brand {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.f-info-socials i{
+.f-info-socials i {
     font-size: 1.2rem;
     margin-right: 1rem;
 }
@@ -48,17 +60,41 @@
 
 /* cards  */
 
-.card{
+.card {
     border: none !important;
     margin-bottom: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
     padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* card effect  */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* new page  */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
 }
