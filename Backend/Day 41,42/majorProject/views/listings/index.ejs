@@ -10,7 +10,7 @@
             <% for (const listing of allListings) { %>
                 <a href="/listings/<%= listing._id %>" class="listing-link">
                     <div class="card col">
-                        <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;"
+                        <img src="<%= listing.image %>" class="card-img-top" style="height: 20rem;"
                             alt="listing_img"/>
                         <dv class="card-img-overlay"></dv>
                         <div class="card-body">
