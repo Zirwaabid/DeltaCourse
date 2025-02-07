@@ -1,18 +1,19 @@
 const express = require("express");
 const app = express();
+let expressErr = require("./expressError");
 
 // create random middleware
-// app.use((req, res, next) => {
-//     console.log("hi i am a middleware");
-//     next();
-// });
+app.use((req, res, next) => {
+    console.log("hi i am a middleware");
+    next();
+});
 
 // create our logger like morgan(npm package)
-// app.use((req, res, next) => {
-//     req.time = new Date(Date.now()).toString(); // create our own parameter
-//     console.log(req.method, req.path, req.hostname, req.time);
-//     next();
-// });
+app.use((req, res, next) => {
+    req.time = new Date(Date.now()).toString(); // create our own parameter
+    console.log(req.method, req.path, req.hostname, req.time);
+    next();
+});
 
 // activity 
 const checkToken = (req, res, next) => {
@@ -20,7 +21,7 @@ const checkToken = (req, res, next) => {
     if (token === "accesstoken") {
         next()
     };
-    res.send("ACCESS DENIED");
+    throw new expressErr(401, "ACCESS DENIED");
 };
 
 app.get("/api", checkToken, (req, res) => {
@@ -34,13 +35,20 @@ app.use("/random", (req, res, next) => {
 
 
 // error handling middlewares
-app.get("/err",(req,res)=>{
-    abcd=abcd;
-})
-app.use((err,req,res,next)=>{
-    console.log("-----error----");
-    next(err);
+app.get("/err", (req, res) => {
+    abcd = abcd;
 });
+
+// activity 
+app.get("/admin", (req, res) => {
+    throw new expressErr(403, "Access to admin is forbidden");
+});
+
+app.use((err, req, res, next) => {
+    let { status = 500, message = "some error occurred" } = err;
+    res.status(status).send(message);
+});
+
 
 // ---------------- 
 app.get("/", (req, res) => {
