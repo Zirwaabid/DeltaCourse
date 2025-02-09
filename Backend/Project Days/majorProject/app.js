@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+const wrapAsync = require("./utils/wrapAsync.js");
 
 // require and setting for ejs
 const path = require("path");
@@ -48,11 +49,11 @@ app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
 });
 // create route to get and add form data 
-app.post("/listings", async (req, res) => {
+app.post("/listings", wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save()
     res.redirect("/listings");
-})
+}));
 
 // show route 
 app.get("/listings/:id", async (req, res) => {
@@ -82,6 +83,10 @@ app.delete("/listings/:id", async (req, res) => {
     res.redirect("/listings");
 })
 
+// error handler
+app.use((err, req, res, next) => {
+    res.send("something went wrong");
+})
 app.listen("8080", () => {
     console.log("server is listening on port 8080");
 });
