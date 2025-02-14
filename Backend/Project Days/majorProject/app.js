@@ -4,6 +4,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/ExpressError.js");
+// const {listingSchema} = require("./schema.js");
 
 // require and setting for ejs
 const path = require("path");
@@ -52,11 +53,17 @@ app.get("/listings/new", (req, res) => {
 
 // create route to get and add form data 
 app.post("/listings", wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-        throw new expressError(400, "Send valid data for listing")
-    }
+    // let result = listingSchema.validate(req.body.listing);
+    // console.log(result)
+    // if (result.error) {
+    //     throw new expressError(404, result.error);
+    // }
+    if (!req.body.isting) {
+        throw new expressError(404,"send valid data")
+    };
+    console.log(req.body.listing)
     const newListing = new Listing(req.body.listing);
-    await newListing.save()
+    await newListing.save();
     res.redirect("/listings");
 }));
 
@@ -76,7 +83,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 
 //create path to get or update form data
 app.put("/listings/:id", wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
+    if (!req.body.Listingisting) {
         throw new expressError(400, "Send valid data for listing")
     }
     let { id } = req.params;
