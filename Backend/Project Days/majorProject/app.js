@@ -2,9 +2,10 @@
 const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/ExpressError.js");
-// const {listingSchema} = require("./schema.js");
+const { listingSchema } = require("./schema.js");
 
 // require and setting for ejs
 const path = require("path");
@@ -36,6 +37,16 @@ async function main() {
     await mongoose.connect(mongo_url);
 };
 
+const validatListing = (req, body, next) => {
+    let { error } = listingSchema.validate(req.body);
+    if (error) {
+        let errMsq = error.details.map((el) => el.message).join(",");
+        throw new expressError(400, errMsq);
+    } else {
+        next();
+    }
+};
+
 app.get("/", (req, res) => {
     res.send("root is working");
 });
@@ -52,16 +63,7 @@ app.get("/listings/new", (req, res) => {
 });
 
 // create route to get and add form data 
-app.post("/listings", wrapAsync(async (req, res, next) => {
-    // let result = listingSchema.validate(req.body.listing);
-    // console.log(result)
-    // if (result.error) {
-    //     throw new expressError(404, result.error);
-    // }
-    if (!req.body.isting) {
-        throw new expressError(404,"send valid data")
-    };
-    console.log(req.body.listing)
+app.post("/listings", validatListing, wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -82,10 +84,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //create path to get or update form data
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-    if (!req.body.Listingisting) {
-        throw new expressError(400, "Send valid data for listing")
-    }
+app.put("/listings/:id", validatListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
