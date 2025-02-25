@@ -1,3 +1,5 @@
+// one to few relation
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 let mongo_url = "mongodb://127.0.0.1:27017/relationDemo";
