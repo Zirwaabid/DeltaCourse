@@ -28,16 +28,23 @@ const customerSchema = new Schema({
     ]
 });
 
+// handling deletion
+customerSchema.post("findOneAndDelete", async (customer) => {
+    if (customer.orders.length) {
+        let data = await Order.deleteMany({ _id: { $in: customer.orders } });
+        console.log(`This data is deleted ${data}`)
+    }
+});
 const Order = mongoose.model("Order", orderSchema);
 const Customer = mongoose.model("Customer", customerSchema);
 
 // add customer 
 const addCust = async () => {
     let newCust = new Customer({
-        name: "Hira Noor",
+        name: "Defne",
     });
     let newOrd = new Order({
-        title: "Pizza",
+        title: "pizza",
         Price: "2000",
     });
     newCust.orders.push(newOrd);
@@ -48,7 +55,7 @@ const addCust = async () => {
 
 // delete Customer
 const deleteCust = async () => {
-    const deletedCust = await Customer.findByIdAndDelete("67c06f55109264a1a813b102");
+    const deletedCust = await Customer.findByIdAndDelete("67c1ec72c49a15b53702794d");
     console.log(deletedCust);
 }
 deleteCust();
