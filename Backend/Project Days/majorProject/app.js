@@ -25,7 +25,10 @@ app.engine("ejs", ejsMate)
 
 // require and setting for mongoose 
 const mongoose = require("mongoose");
+
+// require models 
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 
 let mongo_url = "mongodb://127.0.0.1:27017/wonderlust";
 main().then(() => {
@@ -96,6 +99,12 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 }));
+
+// review 
+// post route to add new review to that listing whose id 
+app.post("/listings/:id/reviews", async (req, res) => {
+
+})
 
 app.all("*", (req, res, next) => {
     next(new expressError(404, "page not found!"));
