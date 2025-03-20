@@ -5,18 +5,19 @@ const Listing = require("../models/listing.js");
 // error handling object 
 const wrapAsync = require("../utils/wrapAsync.js");
 const expressError = require("../utils/ExpressError.js");
-const { listingSchema} = require("../schema.js");
+const { listingSchema } = require("../schema.js");
 
-// server site validation 
-const validatListing = (req, body, next) => {
-    let { error } = listingSchema.validate(req.body);
-    if (error) {
-        let errMsq = error.details.map((el) => el.message).join(",");
-        throw new expressError(400, errMsq);
-    } else {
-        next();
-    }
-};
+// // server site validation 
+// const validatListing = (req, body, next) => {
+//     let { error } = listingSchema.validate(req.body);
+//     console.log(error)
+//     // if (error) {
+//     //     let errMsq = error.details.map((el) => el.message).join(",");
+//     //     throw new expressError(400, errMsq);
+//     // } else {
+//     //     next();
+//     // }
+// };
 
 // listing routes 
 
@@ -32,7 +33,7 @@ router.get("/new", (req, res) => {
 });
 
 // create route to get and add form data 
-router.post("/", validatListing, wrapAsync(async (req, res, next) => {
+router.post("/",  wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -53,7 +54,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //create path to get or update form data
-router.put("/:id", validatListing, wrapAsync(async (req, res) => {
+router.put("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
