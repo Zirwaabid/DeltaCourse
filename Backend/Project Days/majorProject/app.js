@@ -28,17 +28,41 @@ const mongoose = require("mongoose");
 
 let mongo_url = "mongodb://127.0.0.1:27017/wonderlust";
 main().then(() => {
-    console.log("connected");
+    console.log("connected to DB");
 }).catch((err) => {
     console.log(err);
 });
+await mongoose.connect(mongo_url);
 async function main() {
-    await mongoose.connect(mongo_url);
 };
 
 app.get("/", (req, res) => {
     res.send("root is working");
 });
+
+// require and setting for express-session 
+const session = require("express-session");
+const sessionOptions = {
+    secret: "mysupersecretstring",
+    resave: false,
+    saveUninitialized: true,
+    Cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
+    },
+}
+app.use(session(sessionOptions))
+
+// require and setting for connect-flash 
+const flash = require("connect-flash");
+app.use(flash())
+
+// middleware for flash to display messages
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    next()
+})
 
 // require routes 
 app.use("/listings", listings)
