@@ -32,8 +32,8 @@ main().then(() => {
 }).catch((err) => {
     console.log(err);
 });
-await mongoose.connect(mongo_url);
 async function main() {
+    await mongoose.connect(mongo_url);
 };
 
 app.get("/", (req, res) => {
@@ -55,7 +55,7 @@ const sessionOptions = {
 app.use(session(sessionOptions))
 
 // require and setting for connect-flash 
-const flash = require("connect-flash");
+const flash = require("express-flash");
 app.use(flash())
 
 // middleware for flash to display messages

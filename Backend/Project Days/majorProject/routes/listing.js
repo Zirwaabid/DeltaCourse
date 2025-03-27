@@ -8,16 +8,16 @@ const expressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 
 // // server site validation 
-// const validatListing = (req, body, next) => {
-//     let { error } = listingSchema.validate(req.body);
-//     console.log(error)
-//     // if (error) {
-//     //     let errMsq = error.details.map((el) => el.message).join(",");
-//     //     throw new expressError(400, errMsq);
-//     // } else {
-//     //     next();
-//     // }
-// };
+const validatListing = (req, body, next) => {
+    let { error } = listingSchema.validate(req.body);
+    console.log(error)
+    if (error) {
+        let errMsq = error.details.map((el) => el.message).join(",");
+        throw new expressError(400, errMsq);
+    } else {
+        next();
+    }
+};
 
 // listing routes 
 
