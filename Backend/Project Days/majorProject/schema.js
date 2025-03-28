@@ -3,7 +3,7 @@ const joi = require('joi');
 //server site validation for listing or review
 
 module.exports.listingSchema = joi.object({
-    Listing: joi.object({
+    listing: joi.object({
         title: joi.string().required(),
         description: joi.string().required(),
         location: joi.string().required(),
