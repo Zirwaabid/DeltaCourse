@@ -4,8 +4,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 // require routes 
-const listings = require("./routes/listing.js")
-const reviews = require("./routes/review.js")
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter=require("./routes/user.js");
 
 // require and setting for ejs
 const path = require("path");
@@ -36,6 +37,13 @@ async function main() {
     await mongoose.connect(mongo_url);
 };
 
+// require passport or localPassport
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+
+// require userModel
+const User = require("./models/user.js");
+
 app.get("/", (req, res) => {
     res.send("root is working");
 });
@@ -59,15 +67,31 @@ const flash = require("express-flash");
 app.use(flash())
 
 // middleware for flash to display messages
-app.use((req,res,next)=>{
-    res.locals.success=req.flash("success");
-    res.locals.error=req.flash("error")
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error")
     next()
-})
+});
 
-// require routes 
-app.use("/listings", listings)
-app.use("/listings/:id/reviews", reviews)
+// implementation of passport for authentication
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// use routes 
+// app.get("/demouser",async(req,res)=>{
+//     const fakeUser=new User({
+//         email:"student@gmail.com",
+//         username:"Doray"
+//     });
+//    const registerUser=await User.register(fakeUser,("helloworld"));
+//    res.send(registerUser);
+// })
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/",userRouter); 
 
 // error handler 
 app.all("*", (req, res, next) => {
