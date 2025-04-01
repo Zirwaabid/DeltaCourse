@@ -66,10 +66,11 @@ app.use(session(sessionOptions))
 const flash = require("express-flash");
 app.use(flash())
 
-// middleware for flash to display messages
+// middleware for storing flash info in locals so that we access it in ejs
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error")
+    res.locals.error = req.flash("error");
+    res.locals.currUser=req.user;
     next()
 });
 
