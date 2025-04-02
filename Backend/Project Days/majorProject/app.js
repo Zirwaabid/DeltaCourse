@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: true }));
 // require routes 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
-const userRouter=require("./routes/user.js");
+const userRouter = require("./routes/user.js");
 
 // require and setting for ejs
 const path = require("path");
@@ -54,32 +54,43 @@ const sessionOptions = {
     secret: "mysupersecretstring",
     resave: false,
     saveUninitialized: true,
-    Cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    cookie: {
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
     },
 }
-app.use(session(sessionOptions))
+app.use(session(sessionOptions));
 
 // require and setting for connect-flash 
 const flash = require("express-flash");
-app.use(flash())
+app.use(flash());
 
-// middleware for storing flash info in locals so that we access it in ejs
-app.use((req, res, next) => {
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.currUser=req.user;
-    next()
-});
 
 // implementation of passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+    done(null, user._id); // Save user ID to the session
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);  // Find user by ID
+        done(null, user);  // Store user data in req.user
+    } catch (err) {
+        done(err, null);  // Handle error
+    }
+});
+
+// middleware for storing flash info in locals so that we access it in ejs
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+    next()
+});
 
 // use routes 
 // app.get("/demouser",async(req,res)=>{
@@ -92,12 +103,12 @@ passport.deserializeUser(User.deserializeUser());
 // })
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/",userRouter); 
+app.use("/", userRouter);
 
 // error handler 
 app.all("*", (req, res, next) => {
     next(new expressError(404, "page not found!"));
-})
+});
 
 // error handler
 app.use((err, req, res, next) => {

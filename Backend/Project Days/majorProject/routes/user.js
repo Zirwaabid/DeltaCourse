@@ -43,6 +43,7 @@ router.get("/logout", (req, res, next) => {
         }
         req.flash("success", "you logged out");
         res.redirect("/listings")
+     
     });
 
 })
