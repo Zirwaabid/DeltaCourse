@@ -10,25 +10,21 @@ const listingController = require("../controllers/listing.js");
 
 // listing routes 
 
-// index route 
-router.get("/", wrapAsync(listingController.index));
+// index route and create route to get and add form data 
+router.route("/")
+    .get(wrapAsync(listingController.index))
+    .post(isLoggedIn, validatListing, wrapAsync(listingController.createListing))
 
 //create route for form 
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
-// create route to get and add form data 
-router.post("/", isLoggedIn, validatListing, wrapAsync(listingController.createListing));
-
-// show route 
-router.get("/:id", wrapAsync(listingController.showRoute));
+// show route ,create path to get or update form data,delete path
+router.route("/:id")
+    .get(wrapAsync(listingController.showRoute))
+    .put(isLoggedIn, isOwner, wrapAsync(listingController.updateRoute))
+    .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyRoute));
 
 // create path to create form for update 
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderUpdateForm));
-
-//create path to get or update form data
-router.put("/:id", isLoggedIn, isOwner, wrapAsync(listingController.updateRoute));
-
-//delete path
-router.delete("/:id", isLoggedIn, isOwner, wrapAsync(listingController.destroyRoute));
 
 module.exports = router
