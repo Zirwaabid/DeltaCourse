@@ -8,13 +8,20 @@ const { isLoggedIn, isOwner, validatListing } = require("../middleware.js");
 // require routes callbacks from controllers
 const listingController = require("../controllers/listing.js");
 
+// multer
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+
 // listing routes 
 
 // index route and create route to get and add form data 
 router.route("/")
     .get(wrapAsync(listingController.index))
-    .post(isLoggedIn, validatListing, wrapAsync(listingController.createListing))
-
+    // .post(isLoggedIn, validatListing, wrapAsync(listingController.createListing))
+    .post(upload.single('listing[image]'),(req, res) => {
+        res.send(req.file)
+    })
 //create route for form 
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
