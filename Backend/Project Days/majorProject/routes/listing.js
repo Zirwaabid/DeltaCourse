@@ -27,7 +27,7 @@ router.get("/new", isLoggedIn, listingController.renderNewForm);
 // show route ,create path to get or update form data,delete path
 router.route("/:id")
     .get(wrapAsync(listingController.showRoute))
-    .put(isLoggedIn, isOwner, wrapAsync(listingController.updateRoute))
+    .put(isLoggedIn, isOwner,upload.single('listing[image]'),validatListing, wrapAsync(listingController.updateRoute))
     .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyRoute));
 
 // create path to create form for update 
