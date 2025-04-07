@@ -9,8 +9,9 @@ const { isLoggedIn, isOwner, validatListing } = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 
 // multer
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer = require('multer');
+const { storage } = require("../CloudConfig.js");
+const upload = multer({ storage });
 
 
 // listing routes 
@@ -18,10 +19,8 @@ const upload = multer({ dest: 'uploads/' })
 // index route and create route to get and add form data 
 router.route("/")
     .get(wrapAsync(listingController.index))
-    // .post(isLoggedIn, validatListing, wrapAsync(listingController.createListing))
-    .post(upload.single('listing[image]'),(req, res) => {
-        res.send(req.file)
-    })
+    .post(isLoggedIn,  upload.single('listing[image]'), validatListing,wrapAsync(listingController.createListing));
+
 //create route for form 
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
