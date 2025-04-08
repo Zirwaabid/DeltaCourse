@@ -79,37 +79,61 @@
                                 </div>
                                 <button class="btn btn-outline-dark">Submit</button>
                             </form>
+                            <hr>
                             <% } %>
-                                <hr>
-                                <p><b>All Reviews</b></p>
-                                <div class="row">
-                                    <% for (const review of listing.reviews) { %>
-                                        <div class="card col-5 mb-3 ms-3 ">
-                                            <div class="card-body">
-                                                <h5 class="card-title mt-3">
-                                                    @<%= review.author.username %>
-                                                </h5>
-                                                <p class="starability-result card-text"
-                                                    data-rating="<%= review.rating %>">
-                                                </p>
-                                                <p class="card-text">
-                                                    <%= review.comment %>
-                                                </p>
+                                <% if (listing.reviews.length>0) { %>
 
 
-                                                <form
-                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                                    method="post" class="mb-3">
-                                                    <button class="btn btn-sm btn-dark">Delete</button>
-                                                </form>
+                                    <div class="row">
+                                        <p><b>All Reviews</b></p>
+                                        <% for (const review of listing.reviews) { %>
+                                            <div class="card col-5 mb-3 ms-3 ">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mt-3">
+                                                        @<%= review.author.username %>
+                                                    </h5>
+                                                    <p class="starability-result card-text"
+                                                        data-rating="<%= review.rating %>">
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <%= review.comment %>
+                                                    </p>
+
+
+                                                    <form
+                                                        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                        method="post" class="mb-3">
+                                                        <button class="btn btn-sm btn-dark">Delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <% } %>
-                                </div>
+                                            <% } %>
+                                    </div>
 
-
+                                    <%} %>
+                    </div>
+                    <div class="col-8 offset-3 mb-3">
+                        <h3>Where you'll be</h3>
+                        <div id="map"></div>
                     </div>
         </div>
 
 
-    </body>
+
+     
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const mapTilerKey = "<%= process.env.MAPTILER_KEY %>";
+
+        var map = L.map('map').setView([30.1575, 71.5249], 12);  // Center on Multan
+
+        L.tileLayer(`https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=${mapTilerKey}`, {
+            attribution: '&copy; MapTiler & OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add city or area marker with larger popup text
+        var marker = L.marker([30.1575, 71.5249]).addTo(map);
+        marker.bindPopup("<b style='font-size: 20px;'>Multan, Pakistan</b>").openPopup(); // Larger text size in popup
+    });
+</script>
