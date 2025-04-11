@@ -49,10 +49,6 @@ const LocalStrategy = require("passport-local");
 // require userModel
 const User = require("./models/user.js");
 
-app.get("/", (req, res) => {
-    res.send("root is working");
-});
-
 // require and setting for express-session 
 const session = require("express-session");
 const sessionOptions = {

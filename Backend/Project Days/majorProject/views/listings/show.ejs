@@ -1,4 +1,7 @@
 <% layout("/layouts/boilerplate.ejs") %>
+    <script>
+        const mapTilerKey = "<%= process.env.MAPTILER_KEY %>";
+    </script>
 
     <body>
         <div class="row mt-3">
@@ -118,22 +121,4 @@
                     </div>
         </div>
 
-
-
-     
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const mapTilerKey = "<%= process.env.MAPTILER_KEY %>";
-
-        var map = L.map('map').setView([30.1575, 71.5249], 12);  // Center on Multan
-
-        L.tileLayer(`https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=${mapTilerKey}`, {
-            attribution: '&copy; MapTiler & OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Add city or area marker with larger popup text
-        var marker = L.marker([30.1575, 71.5249]).addTo(map);
-        marker.bindPopup("<b style='font-size: 20px;'>Multan, Pakistan</b>").openPopup(); // Larger text size in popup
-    });
-</script>
+        <script src="/js/map.js"></script>

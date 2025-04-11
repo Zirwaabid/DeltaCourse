@@ -2,12 +2,18 @@
 
     <body>
         
-        <h3>All Listings</h3>
+        <!-- <h3>All Listings</h3> -->
         <!-- <form method="get" action="/listings/new">
             <button>Create new listing</button>
         </form> -->
-
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+<div id="filters">
+<div class="filters">
+    <i class="fa-solid fa-fire">
+    Trending
+    </i>
+</div>
+</div>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
             <% for (const listing of allListings) { %>
                 <a href="/listings/<%= listing._id %>" class="listing-link">
                     <div class="card col listing-card">
