@@ -1,9 +1,9 @@
 import  './productCard.css'
-function ProductCard() {
+function ProductCard({title,price}) {
     return (
         <div className="ProductCard">
-            <h3>Product Title</h3>
-            <h5>Product Description</h5>
+            <h3>Title: {title}</h3>
+            <h5>Price: {price}</h5>
         </div>
     )
 }

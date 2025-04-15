@@ -5,8 +5,7 @@ import ProductTab from './productTab.jsx'
 function App() {
   return (
     <>
-    <ProductTab/>
-    <ProductTab/>
+    <ProductTab />
       {/* <Title />
       <Title /> */}
     </>
