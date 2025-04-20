@@ -13,7 +13,7 @@ function Products({ title, idx }) {
             <h4>{title}</h4>
             <p>{description[idx][0]}</p>
             <p>{description[idx][1]}</p>
-            <p><Price oldPrice={oldPrices[idx]} newPrice={newPrices[idx]} /></p>
+            <Price oldPrice={oldPrices[idx]} newPrice={newPrices[idx]} />
         </div>
     );
 };
