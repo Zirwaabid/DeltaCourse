@@ -1,8 +1,19 @@
 import { useState } from "react";
+function init() {
+    console.log("init was executed")
+    return Math.random();
+}
 export default function Counter() {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(init); //initialization
+    console.log("component is re-executed");
+    console.log(`count value=${count}`);
     let inCount = () => {
-        setCount(count + 1)
+        setCount((currCount) => { //in case when state depends on curr value
+            return currCount + 1
+        })
+        setCount((currCount) => {
+            return currCount + 1
+        })
     }
     return (
         <div>
