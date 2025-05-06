@@ -1,7 +1,7 @@
 import { useState } from "react"
 export default function LudoBoard() {
-    const [moves, setMoves] = useState({ blue: 0, red: 0, green: 0, yellow: 0 });
-    const [arr, setArr] = useState([""]);
+    const [moves, setMoves] = useState({ blue: 0, red: 0, green: 0, yellow: 0 }); //objects and state
+    const [arr, setArr] = useState([""]); //array and state 
 
     let updateBlue = () => {
         setMoves((prevMoves) => {
@@ -31,7 +31,7 @@ export default function LudoBoard() {
             return { ...prevMoves, green: prevMoves.green + 1 }
         })
     };
-    
+
     return (
         <div>
             <p>Game Begins!</p>
