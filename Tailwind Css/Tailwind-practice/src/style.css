@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.box{
+    @apply w-1/2 bg-cyan-600 h-10 mt-3 border-3;
+}
